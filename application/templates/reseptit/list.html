@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <table>
+    <tr>
+      <th>Resepti</th>
+      <th>Done</th>
+      <th></th>
+    </tr>
+    {% for resepti in reseptit %}
+    <tr>
+      <td>{{ resepti.name }}</td>
+      <td>{{ resepti.done }}</td>
+      <td>
+	<form method="POST" action="{{ url_for('reseptit_set_done', resepti_id=resepti.id) }}">
+	  <input type="submit" value="Muuta status!"/>
+	</form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

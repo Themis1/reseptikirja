@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Reseptikirja</title>
+  </head>
+
+    <body>
+      <ul>
+	<li><a href="{{ url_for('reseptit_index') }}">Näytä kaikki reseptit</a></li>
+	<li><a href="{{ url_for('reseptit_form') }}">Lisää uusi resepti</a></li>
+      </ul>
+      
+      {% block body %}
+      <p>
+	Content.
+      </p>
+      {% endblock %}
+    </body>
+  </html>
