@@ -28,6 +28,6 @@ Tietokantaan tallennetaan taulut
 
 [Asennusohje](https://github.com/Themis1/reseptikirja/blob/master/dokumentaatio/asennusohje.md)  
 
-[Käyttötapauksia](https://github.com/Themis1/reseptikirja/blob/master/dokumentaatio/user_story.md)  
+[Käyttötapauksia](https://github.com/Themis1/reseptikirja/blob/master/dokumentaatio/user_stories.md)  
 
 [Tietokantakaavio](https://github.com/Themis1/reseptikirja/blob/master/dokumentaatio/reseptikirja_tietokantakaavio_alustava.png)

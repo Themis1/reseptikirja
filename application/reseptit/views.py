@@ -1,6 +1,8 @@
 from application import app, db
 from flask import redirect, render_template, request, url_for
 from application.reseptit.models import Resepti
+from application.reseptit.forms import ReseptiForm
+from application.reseptit.forms import EditReseptiForm
 
 @app.route("/reseptit", methods=["GET"])
 def reseptit_index():
@@ -9,6 +11,28 @@ def reseptit_index():
 @app.route("/reseptit/new/")
 def reseptit_form():
     return render_template("reseptit/new.html")
+
+@app.route("/reseptit/<resepti_id>/edit", methods=["GET","POST"])
+def edit_resepti(resepti_id):
+
+    if request.method == "GET":
+        form = EditReseptiForm(obj=Resepti.query.get(resepti_id))
+        return render_template("reseptit/edit_resepti.html", resepti=Resepti.query.get(resepti_id), form = form)
+
+    form = EditReseptiForm(request.form)
+
+    if not form.validate():
+        return render_template("reseptit/edit_resepti.html", resepti=Resepti.query.get(resepti_id), form = form)
+
+    resepti = Resepti.query.get(resepti_id)
+
+    resepti.id = form.id.data
+    resepti.name = form.name.data
+    resepti.done = form.done.data
+    db.session().commit()
+
+    return redirect(url_for("reseptit_index"))
+
 
 @app.route("/reseptit/<resepti_id>/", methods=["POST"])
 def reseptit_set_done(resepti_id):
@@ -27,3 +51,12 @@ def reseptit_create():
     db.session().commit()
   
     return redirect(url_for("reseptit_index"))
+
+@app.route("/reseptit/<resepti_id>/delete", methods=["POST"])
+def delete_resepti(resepti_id):
+    c = Resepti.query.get(resepti_id)
+    db.session().delete(c)
+    db.session().commit()
+
+    return redirect(url_for("reseptit_index"))
+
