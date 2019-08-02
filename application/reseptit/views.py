@@ -10,7 +10,13 @@ def reseptit_index():
 
 @app.route("/reseptit/new/")
 def reseptit_form():
-    return render_template("reseptit/new.html")
+    return render_template("reseptit/new.html", form = ReseptiForm())
+
+@app.route("/reseptit/<resepti_id>/", methods=["GET"])
+def get_resepti(resepti_id):
+    resepti = Resepti.query.get(resepti_id)
+    form = ReseptiForm(obj=resepti)
+    return render_template("reseptit/get_resepti.html", resepti=Resepti.query.get(resepti_id), form = form)
 
 @app.route("/reseptit/<resepti_id>/edit", methods=["GET","POST"])
 def edit_resepti(resepti_id):
@@ -45,7 +51,13 @@ def reseptit_set_done(resepti_id):
 
 @app.route("/reseptit/", methods=["POST"])
 def reseptit_create():
-    t = Resepti(request.form.get("name"))
+    form = ReseptiForm(request.form)
+
+    if not form.validate():
+        return render_template("reseptit/new.html", form=form)
+
+    t = Resepti(form.name.data)
+    t.done = form.done.data
 
     db.session().add(t)
     db.session().commit()
