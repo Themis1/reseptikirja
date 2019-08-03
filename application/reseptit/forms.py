@@ -4,10 +4,9 @@ from application.reseptit.models import Resepti
 
 class ReseptiForm(FlaskForm):
     name = StringField("Reseptin nimi", [validators.DataRequired(message=("Nimi ei voi olla tyhjä")), validators.Length(min=2, max=144)])
-#    kuvaus = StringField("Kuvaus", [validators.DataRequired(message=("Kuvaus ei voi olla tyhjä")), validators.Length(min=2, max=300)])
     done = BooleanField ("Kokeiltu")
-    ainesosat = StringField("Ainesosat", [validators.Length(max=1000)])
-    tyovaiheet = StringField("Työvaiheet", [validators.Length(max=1000)])
+    ainesosat = StringField("Ainesosat", [validators.Length(max=1000, message=("Ainesosissa on korkeintaan 1000 merkkiä"))])
+    tyovaiheet = StringField("Työvaiheet", [validators.Length(max=1000, message=("Työvaiheissa on korkeintaan 1000 merkkiä"))])
 
 
     class Meta:
@@ -19,11 +18,11 @@ class EditReseptiForm(FlaskForm):
         validators.Length(min=2, max=144, message=("Reseptin nimessä on 2-144 merkkiä"))
     ])
     ainesosat = StringField("Ainesosat", [
-        validators.Length(max=1000, message=("Kuvauksessa on korkeintaan 1000 merkkiä")),
+        validators.Length(max=1000, message=("Kuvauksessa on korkeintaan 1000 merkkiä"))
     ])
 
     tyovaiheet = StringField("Työvaiheet", [
-        validators.Length(max=1000, message=("Työvaiheissa on korkeintaan 1000 merkkiä")),
+        validators.Length(max=1000, message=("Työvaiheissa on korkeintaan 1000 merkkiä"))
     ])
 
     id = HiddenField("Reseptin ID", [

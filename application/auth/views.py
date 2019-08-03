@@ -25,13 +25,13 @@ def auth_login():
     print("Käyttäjä " + user.name + " tunnistettiin")
 
     login_user(user)
-    return redirect(url_for("index"))    
+    return redirect(url_for("index"))
 
 @app.route("/auth/logout")
 @login_required()
 def auth_logout():
     logout_user()
-    return redirect(url_for("index"))    
+    return redirect(url_for("index"))
 
 @app.route("/auth/signup", methods = ["GET", "POST"])
 def auth_signup():
@@ -63,24 +63,24 @@ def auth_edit_profile(user_id):
 
     if int(user_id) != current_user.id and not current_user.is_superuser():
         return login_manager.unauthorized()
-    
+
     if request.method == "GET":
         form = EditUserForm(obj=User.query.get(user_id))
 
         return render_template("auth/edit_profile.html", form = form)
-    
+
     form = EditUserForm(request.form)
 
-    if (not form.id.data.isdigit() or 
+    if (not form.id.data.isdigit() or
             int(form.id.data) != int(user_id) or not form.validate()):
         return render_template("auth/edit_profile.html", form = form)
 
     user = User.query.get(user_id)
-    
+
     user.name = form.name.data
     user.username = form.username.data
     user.email = form.email.data
-    
+
     db.session.commit()
 
     return redirect(url_for("user_view", user_id=user_id))
