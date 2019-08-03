@@ -5,13 +5,18 @@
   <table>
     <tr>
       <th>Resepti</th>
+      <th>Ainesosat</th>
+      <th>Työvaiheet</th>
       <th>Done</th>
+      <th></th>
       <th></th>
       <th></th>
     </tr>
     {% for resepti in reseptit %}
     <tr>
       <td>{{ resepti.name }}</td>
+      <td>{{ resepti.ainesosat }}</td>
+      <td>{{ resepti.tyovaiheet }}</td>
       <td>{{ resepti.done }}</td>
       <td>
 	<form method="POST" action="{{ url_for('reseptit_set_done', resepti_id=resepti.id) }}">

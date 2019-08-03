@@ -1,14 +1,18 @@
 from application import db
+from application.models import Base
 
-class Resepti(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
-    date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(),
-    onupdate=db.func.current_timestamp())
+class Resepti(Base):
 
     name = db.Column(db.String(144), nullable=False)
     done = db.Column(db.Boolean, nullable=False)
+    ainesosat = db.Column(db.String(1000), nullable=False)
+    tyovaiheet = db.Column(db.String(1000), nullable=False)
 
-    def __init__(self, name):
+    account_id = db.Column(db.Integer, db.ForeignKey('account.id'),
+                           nullable=False)
+
+    def __init__(self, name, ainesosat, tyovaiheet):
         self.name = name
         self.done = False
+        self.ainesosat = ainesosat
+        self.tyovaiheet = tyovaiheet

@@ -3,9 +3,12 @@ from wtforms import StringField, BooleanField, validators, HiddenField, SubmitFi
 from application.reseptit.models import Resepti
 
 class ReseptiForm(FlaskForm):
-    name = StringField("Reseptin nimi", [validators.DataRequired(message=("Nimi ei voi olla tyhjä")), validators.Length(min=2, max=300)])
+    name = StringField("Reseptin nimi", [validators.DataRequired(message=("Nimi ei voi olla tyhjä")), validators.Length(min=2, max=144)])
 #    kuvaus = StringField("Kuvaus", [validators.DataRequired(message=("Kuvaus ei voi olla tyhjä")), validators.Length(min=2, max=300)])
     done = BooleanField ("Kokeiltu")
+    ainesosat = StringField("Ainesosat", [validators.Length(max=1000)])
+    tyovaiheet = StringField("Työvaiheet", [validators.Length(max=1000)])
+
 
     class Meta:
         csrf = False
@@ -13,12 +16,16 @@ class ReseptiForm(FlaskForm):
 class EditReseptiForm(FlaskForm):
     name = StringField("Reseptin nimi", [
         validators.DataRequired(message=("Anna reseptin nimi")),
-        validators.Length(min=2, max=300, message=("Reseptin nimessä on 2-300 merkkiä"))
+        validators.Length(min=2, max=144, message=("Reseptin nimessä on 2-144 merkkiä"))
     ])
-#    kuvaus = StringField("Kuvaus", [
-#        validators.Length(min=3, max=300, message=("Kuvauksessa on 3-300 merkkiä")),
-#        validators.DataRequired(message=("Anna asetukselle kuvaus"))
-#    ])
+    ainesosat = StringField("Ainesosat", [
+        validators.Length(max=1000, message=("Kuvauksessa on korkeintaan 1000 merkkiä")),
+    ])
+
+    tyovaiheet = StringField("Työvaiheet", [
+        validators.Length(max=1000, message=("Työvaiheissa on korkeintaan 1000 merkkiä")),
+    ])
+
     id = HiddenField("Reseptin ID", [
         validators.DataRequired(message=("ID puuttuu"))
     ])
@@ -29,8 +36,12 @@ class EditReseptiForm(FlaskForm):
     def validate_name(self, name):
         name = Resepti.query.filter_by(name=name.data).first()
 
-#    def validate_kuvaus(self, kuvaus):
-#        kuvaus = Vna.query.filter_by(kuvaus=kuvaus.data).first()
+    def validate_ainesosat(self, ainesosat):
+        ainesosat = Resepti.query.filter_by(ainesosat=ainesosat.data).first()
+
+    def validate_tyovaiheet(self, tyovaiheet):
+        tyovaiheet = Resepti.query.filter_by(tyovaiheet=tyovaiheet.data).first()
+
 
     class Meta:
         csrf = False

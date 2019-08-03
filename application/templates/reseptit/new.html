@@ -14,12 +14,37 @@
 	  </ul>
 	</td>
       </tr>
+
+      <tr>
+        <td>{{ form.ainesosat.label }}</td>
+        <td>{{ form.ainesosat }}</td>
+        <td>
+          <ul>
+            {% for error in form.ainesosat.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+
+      <tr>
+        <td>{{ form.tyovaiheet.label }}</td>
+        <td>{{ form.tyovaiheet }}</td>
+        <td>
+          <ul>
+            {% for error in form.tyovaiheet.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+
       <tr>
         <td>{{ form.done.label }}</td>
         <td>{{ form.done }}</td>
       </tr>
       <tr>
-	<td colspan="3">
+	<td colspan="5">
 	  <input type="submit" value="Lisää uusi resepti"/>
 	</td>
       </tr>
