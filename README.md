@@ -24,7 +24,7 @@ Tietokantaan tallennetaan taulut
 
 [Sovellus](https://reseptikirja.herokuapp.com/)  
 
-** HUOM! Sovellukseen voi kirjautua tunnuksilla (admin, admin) taikka rekisteröityminen-linkistä voi luoda uudet tunnukset. **  
+`HUOM! Sovellukseen voi kirjautua tunnuksilla (admin, admin) taikka rekisteröityminen-linkistä voi luoda uudet tunnukset.`  
 
 [Käyttöohje](https://github.com/Themis1/reseptikirja/blob/master/dokumentaatio/kayttoohje.md)  
 
