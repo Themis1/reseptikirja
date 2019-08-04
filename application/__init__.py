@@ -1,15 +1,9 @@
-# coding=utf-8
-# Tuodaan Flask
 from flask import Flask
 app = Flask(__name__)
 
 from functools import wraps
 
-# Tuodaan SQLAlchemy käyttöön
 from flask_sqlalchemy import SQLAlchemy
-# Käytetään tasks.db-nimistä SQLite-tietokantaa. Kolme vinoviivaa
-# kertoo, tiedosto sijaitsee tämän sovelluksen tiedostojen kanssa
-# samassa paikassa
 
 import os
 
@@ -30,11 +24,13 @@ app.config["SECRET_KEY"] = urandom(32)
 
 from flask_login import LoginManager, current_user
 login_manager = LoginManager()
-login_manager.init_app(app)
+login_manager.setup_app(app)
 
 login_manager.login_view = "auth_login"
 login_manager.login_message = "Kirjaudu sisään käyttääksesi reseptikirjaa."
 
+# login roles
+#from functools import wraps
 
 def login_required(role="ANY"):
     def wrapper(fn):

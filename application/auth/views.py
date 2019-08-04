@@ -120,7 +120,7 @@ def auth_change_password(user_id):
 
 # PROFIILIN DELETOINTI
 @app.route("/auth/delete/<user_id>", methods = ["DELETE"])
-@login_required()
+@login_required(role="ADMIN")
 def auth_delete_profile(user_id):
     if not user_id.isdigit() or int(user_id) == 1:
         # Adminia, jonka id on 1, ei voi poistaa
