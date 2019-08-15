@@ -20,6 +20,19 @@
     <tr>
       <td><a href="{{ url_for('reseptit_index') }}">Takaisin</a></td>
     </tr>
+
+    {% if reseptin_kommentit is defined %}
+    <tr>
+      <th>Kommentit</th>
+    </tr>
+    <ul>
+      {% for kommentti in reseptin_kommentit %}
+      <li>
+        {{kommentti.id}} {{kommentti.name}}
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
   </table>
 </form>
 {% endblock %}

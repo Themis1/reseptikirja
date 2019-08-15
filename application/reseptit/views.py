@@ -21,7 +21,7 @@ def reseptit_form():
 def get_resepti(resepti_id):
     resepti = Resepti.query.get(resepti_id)
     form = ReseptiForm(obj=resepti)
-    return render_template("reseptit/get_resepti.html", resepti=Resepti.query.get(resepti_id), form = form)
+    return render_template("reseptit/get_resepti.html", resepti=Resepti.query.get(resepti_id), form = form, reseptin_kommentit=Resepti.reseptin_kommentit(resepti_id))
 
 @app.route("/reseptit/<resepti_id>/edit", methods=["GET","POST"])
 @login_required()
