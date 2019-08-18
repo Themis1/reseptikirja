@@ -93,7 +93,7 @@ def auth_edit_profile(user_id):
 
     db.session.commit()
 
-    return redirect(url_for("user_view", user_id=user_id))
+    return redirect(url_for("show_profile", user_id=user_id))
 
 # SALASANAN MUOKKAUS
 @app.route("/auth/password/<user_id>", methods = ["GET", "POST"])
