@@ -54,6 +54,16 @@ def auth_signup():
     print("Rekisteröinti onnistui")
     return redirect(url_for("index"))
 
+# PROFIIlIN KATSELU
+@app.route("/auth/<user_id>/", methods=["GET"])
+@login_required()
+def show_profile(user_id):
+    user = User.query.get(user_id)
+    form = SignUpForm(obj=user)
+    return render_template("auth/show_profile.html", user=User.query.get(user_id), form = form, user_reseptit=User.user_reseptit(user_id))
+
+
+
 # PROFIILIN MUOKKAUS
 @app.route("/auth/edit/<user_id>", methods = ["GET","POST"])
 @login_required()

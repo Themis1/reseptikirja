@@ -65,6 +65,18 @@ class User(Base):
         return any(p.id == int(resepti_id) for p in self.reseptit)
 
 
+    def user_reseptit(account_id):
+        stmt = text("SELECT Resepti.name FROM Resepti"
+                    " LEFT JOIN Account ON Account.id = Resepti.account_id"
+                    " WHERE Resepti.account_id  = account_id")
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append({"name":row[0]})
+        return response
+
+
 #    def roles(self):
 #        return ["ADMIN"]
 

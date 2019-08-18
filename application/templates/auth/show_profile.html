@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h3>{{ Profiilisivu }}</h3>
+<form method="POST" action"{{ url_for('show_profile', user_id=user.id) }}">
+  <table>
+    <tr>
+      <th>Käyttäjätunnus</th>
+      <th>Nimi</th>
+      <th>Sähköposti</th>
+      <th></th>
+    </tr>
+    <tr>
+      <td>{{ form.username(readonly=true) }}</td>
+      <td>{{ form.name(readonly=true) }}</td>
+      <td>{{ form.email(readonly=true) }}</td>
+
+      <td><button class="btn btn-info btn-lg" type="button" onclick="location.href='/auth/edit/{{user.id}}cd'" >Muokkaa</button></td>
+    </tr>
+    <tr>
+      <td><a href="{{ url_for('reseptit_index') }}">Takaisin</a></td>
+    </tr>
+  </table>
+</form>
+<form>
+  <table>
+    {% if user_reseptit is defined %}
+    <tr>
+      <th>Omat reseptini</th>
+    </tr>
+    <ul>
+      {% for resepti in user_reseptit %}
+      <li>
+        {{resepti.id}} {{resepti.name}}
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <tr><th>Sinulla ei ole vielä omia reseptejä</th></tr>
+    {% endif %}
+  </table>
+</form>
+{% endblock %}
+

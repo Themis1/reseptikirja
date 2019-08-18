@@ -20,7 +20,32 @@
     <tr>
       <td><a href="{{ url_for('reseptit_index') }}">Takaisin</a></td>
     </tr>
+  </table>
+</form>
+<form method="POST" action="{{ url_for('kommentit_create', resepti_id=resepti.id) }}">
+  <table>
+      <tr>
+        <td>{{ form.name.label }}</td>
+        <td>{{ form.name }}</td>
+        <td>
+          <ul>
+            {% for error in form.name.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
 
+      <tr>
+        <td colspan="5">
+
+        </td>
+      </tr>
+  </table>
+</form>
+
+<form>
+  <table>
     {% if reseptin_kommentit is defined %}
     <tr>
       <th>Kommentit</th>

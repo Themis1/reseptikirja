@@ -50,7 +50,7 @@
         </td>
       </tr>
       <tr>
-        <td><a class="btn btn-secondary" href="{{ url_for('user_view', user_id=form.id.data) }}">Peruuta</a></td>
+        <td><a class="btn btn-secondary" href="{{ url_for('show_profile', user_id=form.id.data) }}">Peruuta</a></td>
         <td>{{ form.submit(class="btn btn-dark") }}</td>
         <td>
           <ul>
