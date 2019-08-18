@@ -3,7 +3,7 @@ from application.models import Base
 
 from sqlalchemy.sql import text
 
-user_role = db.Table("userrole", db.Column("user_id", db.Integer, db.ForeignKey("account.id", ondelete="CASCADE")), db.Column("role_id", db.Integer, db.ForeignKey("role.id")))
+user_role = db.Table("user_role", db.Column("user_id", db.Integer, db.ForeignKey("account.id", ondelete="CASCADE")), db.Column("role_id", db.Integer, db.ForeignKey("role.id")))
 
 class Role(Base):
     name = db.Column(db.String(30), nullable = False, unique=True)
