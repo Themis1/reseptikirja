@@ -64,11 +64,11 @@ class User(Base):
     def has_resepti_with_id(self, resepti_id):
         return any(p.id == int(resepti_id) for p in self.reseptit)
 
-
+    @staticmethod
     def user_reseptit(account_id):
         stmt = text("SELECT Resepti.name FROM Resepti"
                     " LEFT JOIN Account ON Account.id = Resepti.account_id"
-                    " WHERE Resepti.account_id  = account_id")
+                    " WHERE (account.id = :id)").params(id=account_id)
         res = db.engine.execute(stmt)
 
         response = []

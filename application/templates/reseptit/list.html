@@ -18,11 +18,9 @@
       <td>{{ resepti.ainesosat }}</td>
       <td>{{ resepti.tyovaiheet }}</td>
       <td>{{ resepti.done }}</td>
-      <td>
-	<form method="POST" action="{{ url_for('reseptit_set_done', resepti_id=resepti.id) }}">
-	  <input type="submit" value="Muuta status!"/>
-	</form>
-      </td>
+      <td><form method="POST" action="{{ url_for('reseptit_set_done', resepti_id=resepti.id) }}">
+	        <input type="submit" value="Muuta status!"/>
+	    </form></td>
       <td><button onclick="location.href='/reseptit/{{resepti.id}}'" >Näytä tiedot</button></td>
       <td><form method="POST" action="{{ url_for('delete_resepti', resepti_id=resepti.id) }}"><input type="submit" value="Poista resepti"/></form></td>
     </tr>
