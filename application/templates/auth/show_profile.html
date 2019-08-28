@@ -24,20 +24,20 @@
 </form>
 <form>
   <table>
-    {% if user_reseptit is defined %}
     <h4>Omat reseptini</h4>
-    {% for resepti in user_reseptit %}
+    {% for resepti in user.reseptit %}
     <tr>
-      <td>{{resepti.id}} {{resepti.name}}</td>
+      <td><a href="{{ url_for('get_resepti', resepti_id=resepti.id) }}">{{ resepti.name }}</a></td>
+      <td><a class="nav-item nav-link" href="{{ url_for('get_resepti', resepti_id=resepti.id) }}">Näytä tästä</a></td>
       <td><button onclick="location.href='/../reseptit/{{resepti.id}}'" >Näytä tiedot</button></td>
       <td><button onclick="location.href='/reseptit/{{resepti.id}}'" >Näytä tiedot</button></td>
       <td><form method="POST" action="{{ url_for('get_resepti', resepti_id=resepti.id) }}"><input type="submit" value="Näytä!"/></form></td>
     </tr>
-    {% endfor %}
+    
       
     {% else %}
     <tr><th>Sinulla ei ole vielä omia reseptejä</th></tr>
-    {% endif %}
+    {% endfor %}
   </table>
 </form>
 {% endblock %}
