@@ -1,0 +1,35 @@
+CREATE TABLE account (
+    id INTEGER NOT NULL, 
+    date_created DATETIME, 
+    date_modified DATETIME,
+    account_id INTEGER NOT NULL,
+    name VARCHAR(144) NOT NULL, 
+    username VARCHAR(144) NOT NULL, 
+    password VARCHAR(144) NOT NULL, 
+    role VARCHAR(144) NOT NULL, 
+    PRIMARY KEY (id)
+);
+CREATE TABLE resepti (
+    id INTEGER NOT NULL, 
+    date_created DATETIME, 
+    date_modified DATETIME, 
+    account_id INTEGER NOT NULL,
+    name VARCHAR(300) NOT NULL,
+    ainesosat VARCHAR(300) NOT NULL, 
+    tyovaiheet VARCHAR(300) NOT NULL,  
+    PRIMARY KEY (id), 
+    FOREIGN KEY(account_id) REFERENCES account (id), 
+);
+CREATE TABLE kommentti (
+    id INTEGER NOT NULL,
+    date_created DATETIME, 
+    date_modified DATETIME,  
+    account_id INTEGER NOT NULL,
+    name VARCHAR(300) NOT NULL,  
+    PRIMARY KEY (id),
+    FOREIGN KEY(resepti_id) REFERENCES resepti (id), 
+    FOREIGN KEY(account_id) REFERENCES account (id)
+);
+  
+  
+*** HUOM Osia puuttuu vielä ***
