@@ -41,6 +41,69 @@
       </tr>
 
       <tr>
+        <td>{{ form.tyypit.label }}</td>
+        <td>{{ form.tyypit }}</td>
+        <td>
+          <ul>
+            {% for error in form.tyypit.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>      
+
+      <tr>
+        <td colspan="3">
+          <table>
+            <tr>
+              <td>
+                {{ form.liharuoka.label }}
+              </td>
+              <td>
+                {{ form.kasvis.label }}
+              </td>
+              <td>
+                {{ form.vegaani.label }}
+              </td>
+              <td>
+                {{ form.maidoton.label }}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                {{ form.liharuoka }}
+              </td>
+              <td>
+                {{ form.kasvis }}
+              </td>
+              <td>
+                {{ form.vegaani }}
+              </td>
+              <td>
+                {{ form.maidoton }}
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+
+      <!-- <tr>
+        <div class="form-row">
+          <div class="form-group col-sm-3">
+            <label for="tyypit">{{ form.tyypit.label }}</label>
+            <small id="tyypitHelpBlock" class="form-text text-muted">
+                Useamman tyypin voit valita painamalla control-nappulaa valitessa tyyppejä.
+            </small>
+          </div>
+          <div class="form-group col-sm-3">
+              {{ form.tyypit(class="form-control", size="6") }}
+          </div>
+        </div>
+      </tr> -->
+
+
+      <tr>
         <td>{{ form.done.label }}</td>
         <td>{{ form.done }}</td>
       </tr>

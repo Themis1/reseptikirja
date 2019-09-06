@@ -6,60 +6,47 @@
   <table>
     <tr>
       <th>Reseptin nimi</th>
+      <th>{{ form.name(readonly=true) }}</th>
+    </tr>
+    <tr>
       <th>Ainesosat</th>
+      <th>{{ form.ainesosat(readonly=true) }}</th>
+    </tr>
+    <tr>
       <th>Työvaiheet</th>
-      <th></th>
+      <th>{{ form.tyovaiheet(readonly=true) }}</th>
     </tr>
     <tr>
-      <td>{{ form.name(readonly=true) }}</td>
-      <td>{{ form.ainesosat(readonly=true) }}</td>
-      <td>{{ form.tyovaiheet(readonly=true) }}</td>
-
-      <td><button class="btn btn-info btn-lg" type="button" onclick="location.href='/reseptit/{{resepti.id}}/edit'" >Muokkaa</button></td>
+      <th>Tyyppi</th>
+      <th>
+        {% for tyyppi in resepti.tyypit %}
+            {{ tyyppi.name }}
+        {% endfor %}
+      </th>
     </tr>
     <tr>
-      <td><a href="{{ url_for('reseptit_index') }}">Takaisin</a></td>
-    </tr>
-  </table>
-</form>
-<form method="POST" action="{{ url_for('kommentit_create', resepti_id=resepti.id) }}">
-  <table>
+      {% for luokka in resepti.luokat %}
       <tr>
-        <td>{{ form.name.label }}</td>
-        <td>{{ form.name }}</td>
         <td>
-          <ul>
-            {% for error in form.name.errors %}
-            <li>{{ error }}</li>
-            {% endfor %}
-          </ul>
+          {{ luokka.name }}
         </td>
       </tr>
-
-      <tr>
-        <td colspan="5">
-
-        </td>
-      </tr>
-  </table>
-</form>
-
-<form>
-  <table>
-    {% if reseptin_kommentit is defined %}
-    <tr>
-      <th>Kommentit</th>
-    </tr>
-    <ul>
-      {% for kommentti in reseptin_kommentit %}
-      <li>
-        {{kommentti.id}} {{kommentti.name}}
-      </li>
       {% endfor %}
-    </ul>
-    {% endif %}
+    </tr>
+
+    <tr>
+      <td><button class="btn btn-info btn-lg" type="button" onclick="location.href='/reseptit/{{resepti.id}}/edit'" >Muokkaa</button></td>
+      <td><button class="btn btn-info btn-lg" type="button" onclick="location.href='/reseptit'" >Takaisin</button></td>
+    </tr>
   </table>
 </form>
+
+
+
+
+
+
+
 {% endblock %}
 
 

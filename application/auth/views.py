@@ -126,7 +126,7 @@ def auth_change_password(user_id):
 
     db.session.commit()
 
-    return render_template("users/user.html", user = user)
+    return redirect(url_for("show_profile", user_id=user_id))
 
 # PROFIILIN DELETOINTI
 @app.route("/auth/delete/<user_id>", methods = ["DELETE"])

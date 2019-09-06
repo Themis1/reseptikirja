@@ -5,9 +5,9 @@
   <table>
     <tr>
       <th>Resepti</th>
-      <th>Ainesosat</th>
-      <th>Työvaiheet</th>
-      <th>Done</th>
+      <th>Reseptin tyyppi</th>
+      <th>Luokka</th>
+      <th>Kokeiltu</th>
       <th></th>
       <th></th>
       <th></th>
@@ -15,13 +15,13 @@
     {% for resepti in reseptit %}
     <tr>
       <td>{{ resepti.name }}</td>
-      <td>{{ resepti.ainesosat }}</td>
-      <td>{{ resepti.tyovaiheet }}</td>
+      <td>{{ resepti.tyypit }}</td>
+      <td>{{ resepti.luokat }}</td>
       <td>{{ resepti.done }}</td>
       <td><form method="POST" action="{{ url_for('reseptit_set_done', resepti_id=resepti.id) }}">
 	        <input type="submit" value="Muuta status!"/>
-	    </form></td>
-      <td><button onclick="location.href='/reseptit/{{resepti.id}}'" >Näytä tiedot</button></td>
+      </form></td>
+      <td><form method="GET" action="{{ url_for('get_resepti', resepti_id=resepti.id) }}"><input type="submit" value="Näytä tiedot"/></form</td>
       <td><form method="POST" action="{{ url_for('delete_resepti', resepti_id=resepti.id) }}"><input type="submit" value="Poista resepti"/></form></td>
     </tr>
     {% endfor %}

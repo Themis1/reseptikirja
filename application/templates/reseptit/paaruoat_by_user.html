@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h3>Omat pääruokani</h3>
+<form method="POST" action"{{ url_for('paaruoat_by_current_user', user_id=user.id) }}">
+  <table>
+    <h4>Omat pääruokani</h4>
+    {% for resepti in paaruoat_by_current_user %}
+    <tr>
+      <td><a href="{{ url_for('get_resepti', resepti_id=resepti.id) }}">{{ resepti.name }}</a></td>
+    </tr>
+    {% endfor %}
+
+    <tr>
+      <td><a href="{{ url_for('show_profile') }}">Takaisin</a></td>
+    </tr>
+  </table>
+</form>
+
+{% endblock %}

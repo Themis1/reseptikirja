@@ -1,13 +1,23 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, BooleanField, validators, HiddenField, SubmitField
+from wtforms import SelectField, SelectMultipleField, ValidationError, StringField, BooleanField, validators, HiddenField, SubmitField
 from application.reseptit.models import Resepti
+#from application.tyypit.models import Tyyppi
 
 class ReseptiForm(FlaskForm):
+
+
+
     name = StringField("Reseptin nimi", [validators.DataRequired(message=("Nimi ei voi olla tyhjä")), validators.Length(min=2, max=144)])
     done = BooleanField ("Kokeiltu")
     ainesosat = StringField("Ainesosat", [validators.Length(max=1000, message=("Ainesosissa on korkeintaan 1000 merkkiä"))])
     tyovaiheet = StringField("Työvaiheet", [validators.Length(max=1000, message=("Työvaiheissa on korkeintaan 1000 merkkiä"))])
 
+    tyypit = SelectField(u"Class", choices=[("Pääruoka", "Pääruoka"), ("Jälkiruoka","Jälkiruoka"), ("Alkuruoka","Alkuruoka"), ("Välipala", "Välipala")])
+  
+    liharuoka = BooleanField("Liharuoka")
+    kasvis = BooleanField("Kasvis")
+    vegaani = BooleanField("Vegaani")
+    maidoton = BooleanField("Maidoton")
 
     class Meta:
         csrf = False
@@ -24,6 +34,15 @@ class EditReseptiForm(FlaskForm):
     tyovaiheet = StringField("Työvaiheet", [
         validators.Length(max=1000, message=("Työvaiheissa on korkeintaan 1000 merkkiä"))
     ])
+
+    
+    tyypit = SelectField(u"Class", choices=["Pääruoka", "Jälkiruoka", "Alkuruoka", "Välipala"])
+
+    liharuoka = BooleanField("Liharuoka")
+    kasvis = BooleanField("Kasvis")
+    vegaani = BooleanField("Vegaani")
+    maidoton = BooleanField("Maidoton")
+
 
     id = HiddenField("Reseptin ID", [
         validators.DataRequired(message=("ID puuttuu"))

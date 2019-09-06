@@ -63,8 +63,6 @@ from application import views
 from application.reseptit import models
 from application.reseptit import views
 
-from application.kommentit import models
-from application.kommentit import views
 
 from application.auth import models
 from application.auth import views

@@ -3,7 +3,7 @@ from application import app, db, login_required
 from flask import redirect, render_template, request, url_for
 from flask_login import current_user
 
-from application.reseptit.models import Resepti
+from application.reseptit.models import Resepti, Luokka
 from application.reseptit.forms import ReseptiForm
 from application.reseptit.forms import EditReseptiForm
 
@@ -21,7 +21,10 @@ def reseptit_form():
 def get_resepti(resepti_id):
     resepti = Resepti.query.get(resepti_id)
     form = ReseptiForm(obj=resepti)
-    return render_template("reseptit/get_resepti.html", resepti=Resepti.query.get(resepti_id), form = form, reseptin_kommentit=Resepti.reseptin_kommentit(resepti_id))
+    return render_template("reseptit/get_resepti.html", 
+        resepti=Resepti.query.get(resepti_id), 
+        form = form) 
+
 
 @app.route("/reseptit/<resepti_id>/edit", methods=["GET","POST"])
 @login_required()
@@ -43,6 +46,25 @@ def edit_resepti(resepti_id):
     resepti.done = form.done.data
     resepti.ainesosat = form.ainesosat.data
     resepti.tyovaiheet = form.tyovaiheet.data
+    resepti.tyypit = form.tyypit.data
+    resepti.luokat = form.luokat.data
+
+    if form.liharuoka.data:
+        luokka = Luokka("Liharuoka")
+        resepti.luokat.append(luokka)
+
+    if form.kasvis.data:
+        luokka = Luokka("Kasvis")
+        resepti.luokat.append(luokka)
+
+    if form.vegaani.data:
+        luokka = Luokka("Vegaani")
+        resepti.luokat.append(luokka)
+  
+    if form.maidoton.data:
+        luokka = Attribute("Maidoton")
+        resepti.luokat.append(luokka)
+
     db.session().commit()
 
     return redirect(url_for("reseptit_index"))
@@ -67,8 +89,25 @@ def reseptit_create():
     if not form.validate():
         return render_template("reseptit/new.html", form=form)
 
-    resepti = Resepti(form.name.data, form.ainesosat.data, form.tyovaiheet.data)
+    resepti = Resepti(form.name.data, form.ainesosat.data, form.tyovaiheet.data, form.tyypit.data)
     resepti.account_id = current_user.id
+    resepti.luokat = form.luokat.data
+
+    if form.liharuoka.data:
+        luokka = Luokka("Liharuoka")
+        resepti.luokat.append(luokka)
+
+    if form.kasvis.data:
+        luokka = Luokka("Kasvis")
+        resepti.luokat.append(luokka)
+
+    if form.vegaani.data:
+        luokka = Luokka("Vegaani")
+        resepti.luokat.append(luokka)
+  
+    if form.maidoton.data:
+        luokka = Attribute("Maidoton")
+        resepti.luokat.append(luokka)
 
     db.session().add(resepti)
     db.session().commit()
@@ -83,4 +122,23 @@ def delete_resepti(resepti_id):
     db.session().commit()
 
     return redirect(url_for("reseptit_index"))
+
+
+
+@app.route("/reseptit/<user_id>", methods=["GET"])
+@login_required()
+def paaruoat_by_current_user():
+    if current_user.is_authenticated:
+        kayttajan_reseptit = Resepti.paaruoat_by_current_user_query(user_id)
+    return render_template("resepti/paaruoat_by_user.html", reseptit = reseptit, kayttajan_reseptit = kayttajan_reseptit)
+
+
+@app.route("/reseptit/<user_id>", methods=["GET"])
+@login_required()
+def jalkiruoat_by_current_user():
+    if current_user.is_authenticated:
+        kayttajan_reseptit = Resepti.query.jalkiruoat_by_current_user_query(user_id)
+    return render_template("reseptit/jalkiruoat_by_user.html", reseptit = kayttajan_reseptit)
+
+
 
