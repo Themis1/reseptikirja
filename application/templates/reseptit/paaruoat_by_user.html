@@ -2,9 +2,10 @@
 
 {% block body %}
 <h3>Omat pääruokani</h3>
-<form method="POST" action"{{ url_for('paaruoat_by_current_user', user_id=user.id) }}">
+<form method="POST" action"{{ url_for('paaruoat_by_current_user') }}">
   <table>
     <h4>Omat pääruokani</h4>
+
     {% for resepti in paaruoat_by_current_user %}
     <tr>
       <td><a href="{{ url_for('get_resepti', resepti_id=resepti.id) }}">{{ resepti.name }}</a></td>
@@ -12,7 +13,7 @@
     {% endfor %}
 
     <tr>
-      <td><a href="{{ url_for('show_profile') }}">Takaisin</a></td>
+      <td><a href="{{ url_for('index') }}">Takaisin</a></td>
     </tr>
   </table>
 </form>

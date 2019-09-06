@@ -18,7 +18,7 @@
       </tr>
       <tr>
         <td>{{ form.name.label }}</td>
-        <td>{{ form.name }}</td>
+        <td>{{ form.name(value=resepti.name) }}</td>
         <td>
           <ul>
             {% for error in form.name.errors %}
@@ -31,7 +31,7 @@
 
       <tr>
         <td>{{ form.ainesosat.label }}</td>
-        <td>{{ form.ainesosat }}</td>
+        <td>{{ form.ainesosat(value=resepti.ainesosat) }}</td>
         <td>
           <ul>
             {% for error in form.ainesosat.errors %}
@@ -43,7 +43,7 @@
 
       <tr>
         <td>{{ form.tyovaiheet.label }}</td>
-        <td>{{ form.tyovaiheet }}</td>
+        <td>{{ form.tyovaiheet(value=resepti.tyovaiheet) }}</td>
         <td>
           <ul>
             {% for error in form.tyovaiheet.errors %}
@@ -55,7 +55,7 @@
 
 
       <tr>
-        <td colspan="3">
+        <td colspan="4">
           <table>
             <tr>
               <td>
@@ -91,7 +91,7 @@
 
       <tr>
         <td>{{ form.done.label }}</td>
-        <td>{{ form.done }}</td>
+        <td>{{ form.done(value=resepti.done) }}</td>
         <td>
           <ul>
             {% for error in form.done.errors %}
@@ -101,8 +101,7 @@
         </td>
       </tr>
       <tr>
-        <td><input class="btn btn-info btn-lg" type="submit" value="Muokkaa" /></td>
-        <td><button class="btn btn-secondary btn-lg" type="button" onclick="location.href='/reseptit/{{resepti.id}}/'" >Peruuta</button></td>
+        <td>{{ form.submit(class="btn btn-dark") }}</td>
         <td>
           <ul>
             {% for error in form.submit.errors %}
@@ -110,6 +109,8 @@
             {% endfor %}
           </ul>
         </td>
+        <td><button class="btn btn-secondary btn-lg" type="button" onclick="location.href='/reseptit/{{resepti.id}}/'" >Peruuta</button></td>
+
       </tr>
     </table>
 </form>

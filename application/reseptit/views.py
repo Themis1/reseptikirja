@@ -47,7 +47,6 @@ def edit_resepti(resepti_id):
     resepti.ainesosat = form.ainesosat.data
     resepti.tyovaiheet = form.tyovaiheet.data
     resepti.tyypit = form.tyypit.data
-    resepti.luokat = form.luokat.data
 
     if form.liharuoka.data:
         luokka = Luokka("Liharuoka")
@@ -91,7 +90,7 @@ def reseptit_create():
 
     resepti = Resepti(form.name.data, form.ainesosat.data, form.tyovaiheet.data, form.tyypit.data)
     resepti.account_id = current_user.id
-    resepti.luokat = form.luokat.data
+
 
     if form.liharuoka.data:
         luokka = Luokka("Liharuoka")
@@ -125,20 +124,22 @@ def delete_resepti(resepti_id):
 
 
 
-@app.route("/reseptit/<user_id>", methods=["GET"])
+@app.route("/reseptit/paaruoat/", methods=["GET"])
 @login_required()
 def paaruoat_by_current_user():
-    if current_user.is_authenticated:
-        kayttajan_reseptit = Resepti.paaruoat_by_current_user_query(user_id)
-    return render_template("resepti/paaruoat_by_user.html", reseptit = reseptit, kayttajan_reseptit = kayttajan_reseptit)
+    reseptit = Resepti.paaruoat_by_current_user_query()
+
+    return render_template("/reseptit/paaruoat_by_user.html", reseptit = reseptit)
 
 
-@app.route("/reseptit/<user_id>", methods=["GET"])
+@app.route("/reseptit/jalkkarit/", methods=["GET"])
 @login_required()
 def jalkiruoat_by_current_user():
+
+    kayttajan_reseptit = ""
     if current_user.is_authenticated:
-        kayttajan_reseptit = Resepti.query.jalkiruoat_by_current_user_query(user_id)
-    return render_template("reseptit/jalkiruoat_by_user.html", reseptit = kayttajan_reseptit)
+        kayttajan_reseptit = Resepti.jalkiruoat_by_current_user_query()
+    return render_template("/reseptit/jalkiruoat_by_user.html", kayttajan_reseptit = kayttajan_reseptit)
 
 
 

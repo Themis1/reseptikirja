@@ -37,13 +37,13 @@
   </table>
 
 
-  <tr>
-    <td><button class="btn btn-info btn-lg" type="button" onclick="location.href='{{ url_for("paaruoat_by_current_user", user_id=user.id) }}'" >Näytä omat pääruokani</button></td>
-    <td><button class="btn btn-info btn-lg" type="button" onclick="location.href='{{ url_for("jalkiruoat_by_current_user", user_id=user.id) }}'" >Näytä omat jälkiruokani</button></td>
-  </tr>
-  <tr><a href="{{ url_for('paaruoat_by_current_user', user_id=user.id) }}">Näytä kaikki omat pääruokani</a></tr>  
-  <tr><a href="{{ url_for('jalkiruoat_by_current_user', user_id=user.id) }}">Näytä kaikki omat jälkiuokani</a></tr>  
-
+  <tr><a href="{{ url_for('paaruoat_by_current_user') }}">
+    <button type="button" class="btn btn-primary">Näytä pääruokani</button>
+  </a></tr>
+  
+  <tr><a href="{{ url_for('jalkiruoat_by_current_user') }}">
+    <button type="button" class="btn btn-primary">Näytä jälkkärini</button>
+  </a></tr>
 
 </form>
 {% endblock %}

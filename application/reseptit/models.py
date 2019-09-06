@@ -8,6 +8,8 @@ luokat = db.Table('luokat',
     db.Column('resepti_id', db.Integer, db.ForeignKey('resepti.id'), primary_key=True))
 
 class Luokka(db.Model):
+
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(144), nullable=False)
 
@@ -38,6 +40,7 @@ class Resepti(Base):
         self.tyovaiheet = tyovaiheet
         self.tyypit = tyypit
 
+
     def count_by_current_user():
         statement = text("Select Count(Account.id) AS count From Account JOIN Resepti "
                       "ON Resepti.account_id = Account.id WHERE Account.id = :account_id").params(account_id = current_user.id)
@@ -55,20 +58,13 @@ class Resepti(Base):
         reseptit = db.engine.execute(statement)
         return reseptit
 
-    def paaruoat_by_current_user_query(user_id):
+    def paaruoat_by_current_user_query():
         statement = text("SELECT * FROM Resepti "
-                    "JOIN Luokat ON Luokat.resepti_id = resepti.id"
-                    "JOIN Luokka ON Luokka.id = luokat.luokka_id"
-                    "WHERE (Luokka.name = 'paaruoka') AND "
-                    "(resepti.account_id = :account_id").params(account_id = current_user.id)
+                    "JOIN Luokat ON Luokat.resepti_id = Resepti.id JOIN Luokka ON Luokka.id = luokat.luokat_id WHERE (Luokka.name = 'paaruoka') AND (resepti.account_id = :account_id)").params(account_id = current_user.id)
         reseptikysely = db.engine.execute(statement)
         return reseptikysely
 
-    def jalkiruoat_by_current_user_query(user_id):
-        statement = text("SELECT * FROM Resepti "
-                    "JOIN Luokat ON Luokat.resepti_id = resepti.id"
-                    "JOIN Luokka ON Luokka.id = luokat.luokka_id"
-                    "WHERE (Luokka.name = 'jalkiruoka') AND "
-                    "(resepti.account_id = :account_id").params(account_id = current_user.id)
+    def jalkiruoat_by_current_user_query():
+        statement = text("SELECT * FROM Resepti JOIN Luokat ON Luokat.resepti_id = resepti.id JOIN Luokka ON Luokka.id = luokat.luokat_id WHERE (Luokka.name = 'jalkiruoka') AND (Resepti.account_id = :account_id)").params(account_id = current_user.id)
         reseptikysely = db.engine.execute(statement)
         return reseptikysely
