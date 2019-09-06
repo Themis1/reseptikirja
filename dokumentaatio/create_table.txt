@@ -1,35 +1,59 @@
+CREATE TABLE role (
+	id INTEGER NOT NULL, 
+	date_created DATETIME, 
+	date_modified DATETIME, 
+	name VARCHAR(30) NOT NULL, 
+	superuser BOOLEAN NOT NULL, 
+	PRIMARY KEY (id), 
+	UNIQUE (name), 
+	CHECK (superuser IN (0, 1))
+)
+
 CREATE TABLE account (
-    id INTEGER NOT NULL, 
-    date_created DATETIME, 
-    date_modified DATETIME,
-    account_id INTEGER NOT NULL,
-    name VARCHAR(144) NOT NULL, 
-    username VARCHAR(144) NOT NULL, 
-    password VARCHAR(144) NOT NULL, 
-    role VARCHAR(144) NOT NULL, 
-    PRIMARY KEY (id)
-);
+	id INTEGER NOT NULL, 
+	date_created DATETIME, 
+	date_modified DATETIME, 
+	name VARCHAR(30) NOT NULL, 
+	username VARCHAR(30) NOT NULL, 
+	password VARCHAR(30) NOT NULL, 
+	email VARCHAR(30) NOT NULL, 
+	PRIMARY KEY (id), 
+	UNIQUE (username), 
+	UNIQUE (email)
+)
+
+CREATE TABLE luokka (
+	id INTEGER NOT NULL, 
+	name VARCHAR(144) NOT NULL, 
+	PRIMARY KEY (id)
+)
+
+CREATE TABLE user_role (
+	user_id INTEGER, 
+	role_id INTEGER, 
+	FOREIGN KEY(user_id) REFERENCES account (id) ON DELETE CASCADE, 
+	FOREIGN KEY(role_id) REFERENCES role (id)
+)
+
 CREATE TABLE resepti (
-    id INTEGER NOT NULL, 
-    date_created DATETIME, 
-    date_modified DATETIME, 
-    account_id INTEGER NOT NULL,
-    name VARCHAR(300) NOT NULL,
-    ainesosat VARCHAR(300) NOT NULL, 
-    tyovaiheet VARCHAR(300) NOT NULL,  
-    PRIMARY KEY (id), 
-    FOREIGN KEY(account_id) REFERENCES account (id), 
-);
-CREATE TABLE kommentti (
-    id INTEGER NOT NULL,
-    date_created DATETIME, 
-    date_modified DATETIME,  
-    account_id INTEGER NOT NULL,
-    name VARCHAR(300) NOT NULL,  
-    PRIMARY KEY (id),
-    FOREIGN KEY(resepti_id) REFERENCES resepti (id), 
-    FOREIGN KEY(account_id) REFERENCES account (id)
-);
-  
-  
-*** HUOM Osia puuttuu vielä ***
+	id INTEGER NOT NULL, 
+	date_created DATETIME, 
+	date_modified DATETIME, 
+	name VARCHAR(144) NOT NULL, 
+	done BOOLEAN NOT NULL, 
+	ainesosat VARCHAR(1000) NOT NULL, 
+	tyovaiheet VARCHAR(1000) NOT NULL, 
+	tyypit VARCHAR(30) NOT NULL, 
+	account_id INTEGER NOT NULL, 
+	PRIMARY KEY (id), 
+	CHECK (done IN (0, 1)), 
+	FOREIGN KEY(account_id) REFERENCES account (id)
+)
+
+CREATE TABLE luokat (
+	luokat_id INTEGER NOT NULL, 
+	resepti_id INTEGER NOT NULL, 
+	PRIMARY KEY (luokat_id, resepti_id), 
+	FOREIGN KEY(luokat_id) REFERENCES luokka (id), 
+	FOREIGN KEY(resepti_id) REFERENCES resepti (id)
+)
