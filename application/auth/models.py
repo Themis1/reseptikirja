@@ -77,22 +77,5 @@ class User(Base):
         return response
 
 
-#    def roles(self):
-#        return ["ADMIN"]
-
-#    @staticmethod
-#    def find_users_with_no_vnas():
-#        stmt = text("SELECT Account.id, Account.name FROM Account"
-#                    " LEFT JOIN Vna ON Vna.account_id = Account.id"
-#                    " LEFT JOIN Mmma ON Mmma.account_id = Account.id"
-#                    " GROUP BY Account.id"
-#                    " HAVING COUNT(Vna.id) = 0")
-#        res = db.engine.execute(stmt)
-#
-#        response = []
-#        for row in res:
-#            response.append({"id":row[0], "name":row[1]})
-#
-#        return response
 
 

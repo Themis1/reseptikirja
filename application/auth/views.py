@@ -150,3 +150,4 @@ def auth_delete_profile(user_id):
 
     return redirect(url_for("index"))
 
+

@@ -27,8 +27,8 @@ def get_resepti(resepti_id):
 
 
 @app.route("/reseptit/<resepti_id>/edit", methods=["GET","POST"])
-@login_required(current_user)
-def edit_resepti():
+@login_required()
+def edit_resepti(resepti_id):
 
     if request.method == "GET":
         form = EditReseptiForm(obj=Resepti.query.get(resepti_id))
@@ -114,7 +114,7 @@ def reseptit_create():
     return redirect(url_for("reseptit_index"))
 
 @app.route("/reseptit/<resepti_id>/delete", methods=["POST"])
-@login_required(role="ADMIN")
+@login_required()
 def delete_resepti(resepti_id):
     c = Resepti.query.get(resepti_id)
     db.session().delete(c)

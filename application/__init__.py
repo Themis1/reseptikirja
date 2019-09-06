@@ -29,8 +29,6 @@ login_manager.setup_app(app)
 login_manager.login_view = "auth_login"
 login_manager.login_message = "Kirjaudu sisään käyttääksesi reseptikirjaa."
 
-# login roles
-#from functools import wraps
 
 def login_required(role="ANY"):
     def wrapper(fn):
